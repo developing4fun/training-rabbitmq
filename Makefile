@@ -41,6 +41,10 @@ shell:
 composer-install:
 	docker-compose exec php_container composer install
 
+## analyse:	Executes phpstan
+analyse:
+	@docker-compose exec php_container ./vendor/bin/phpstan analyse
+
 ## test:		Run all tests inside docker
 test:
 	@docker-compose exec php_container make run-tests

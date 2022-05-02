@@ -15,3 +15,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> php-amqplib/rabbitmq-bundle ###
+/var
+###< php-amqplib/rabbitmq-bundle ###

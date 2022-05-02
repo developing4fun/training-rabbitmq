@@ -9,7 +9,7 @@ use Shared\Domain\Exception\InvalidUuid;
 
 class Uuid extends StringValueObject
 {
-    public function __construct(string $value)
+    final public function __construct(string $value)
     {
         $this->assertIsValidUuid($value);
         parent::__construct($value);
