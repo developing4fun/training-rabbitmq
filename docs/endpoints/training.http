@@ -1,0 +1,6 @@
+# Create new user
+POST {{url}}/users
+
+{
+   "name": "John Doe"
+}

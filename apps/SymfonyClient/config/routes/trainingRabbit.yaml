@@ -1,0 +1,4 @@
+createUser:
+  path: /users
+  controller: SymfonyClient\Controller\TrainingRabbit\CreateUserController
+  methods: [POST]
