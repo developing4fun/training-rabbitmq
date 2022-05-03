@@ -17,6 +17,8 @@ services:
         resource: '../src/'
     Shared\:
         resource: '../../../src/Shared/'
+    TrainingRabbit\:
+        resource: '../../../src/TrainingRabbit'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -37,16 +39,41 @@ services:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
 
+        Shared\Domain\Bus\Event\DomainEventSubscriber:
+            tags:
+                - 'domain.event.subscriber'
+
     # Loads this specific normalizer to the serializer component
     property_normalizer:
         class: Symfony\Component\Serializer\Normalizer\PropertyNormalizer
         tags:
             - { name: serializer.normalizer }
 
-framework:
-    messenger:
-        default_bus: command.bus
-        buses:
-            command.bus:
-            query.bus:
+    ##############
+    ## RabbitMQ ##
+    # Connection
+    rabbitMQ.connection:
+        class: Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConnection
+        arguments:
+            - host: '%env(RABBITMQ_HOST)%'
+              port: '%env(RABBITMQ_PORT)%'
+              vhost: '%env(RABBITMQ_VHOST)%'
+              login: '%env(RABBITMQ_USER)%'
+              password: '%env(RABBITMQ_PASSWD)%'
+              read_timeout: 2
+              write_timeout: 2
+              connect_timeout: 5
+
+    # Script to initialize the configuration
+    SymfonyClient\CLI\RabbitMQConfiguratorCLI:
+        arguments:
+            - '@Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator'
+            - '%env(RABBITMQ_EXCHANGE)%'
+            - !tagged domain.event.subscriber
+
+    # Service to handle Rabbit
+    Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator:
+        arguments:
+            - '@rabbitMQ.connection'
+
 
