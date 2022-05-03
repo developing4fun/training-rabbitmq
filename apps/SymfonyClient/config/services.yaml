@@ -64,6 +64,13 @@ services:
               write_timeout: 2
               connect_timeout: 5
 
+    # Event bus definition
+    Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQEventBus:
+        class: Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQEventBus
+        arguments:
+            - '@rabbitMQ.connection'
+            - '%env(RABBITMQ_EXCHANGE)%'
+
     # Script to initialize the configuration
     SymfonyClient\CLI\RabbitMQConfiguratorCLI:
         arguments:
@@ -71,7 +78,7 @@ services:
             - '%env(RABBITMQ_EXCHANGE)%'
             - !tagged domain.event.subscriber
 
-    # Service to handle Rabbit
+    # Service to configure Rabbit
     Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator:
         arguments:
             - '@rabbitMQ.connection'
