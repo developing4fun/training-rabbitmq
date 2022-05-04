@@ -5,4 +5,5 @@ parameters:
      paths:
          - src
      excludePaths:
-         - src/Shared/Infrastructure/Symfony
+         - src/Shared/Infrastructure/Controller
+         - src/Shared/Infrastructure/Bus
