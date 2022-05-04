@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ;
+namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
 
 use AMQPQueue;
 use Shared\Domain\Bus\Event\DomainEvent;

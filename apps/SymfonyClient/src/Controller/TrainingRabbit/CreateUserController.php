@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SymfonyClient\Controller\TrainingRabbit;
 
 use Shared\Domain\ValueObject\Uuid;
-use Shared\Infrastructure\Symfony\Controller\ApiController;
+use Shared\Infrastructure\Controller\Symfony\ApiController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TrainingRabbit\User\Application\CreateUser\CreateUserCommand;

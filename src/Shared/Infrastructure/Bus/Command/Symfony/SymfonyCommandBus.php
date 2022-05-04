@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Symfony\Bus\Command;
+namespace Shared\Infrastructure\Bus\Command\Symfony;
 
 use Shared\Domain\Bus\Command\Command;
 use Shared\Domain\Bus\Command\CommandBus;

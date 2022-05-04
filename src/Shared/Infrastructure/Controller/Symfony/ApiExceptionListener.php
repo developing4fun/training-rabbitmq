@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Symfony\Controller;
+namespace Shared\Infrastructure\Controller\Symfony;
 
 use Shared\Domain\Exception\DomainError;
 use Shared\Domain\Utils;

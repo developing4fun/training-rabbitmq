@@ -23,11 +23,11 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    Shared\Infrastructure\Symfony\Bus\Query\SymfonyQueryBus:
+    Shared\Infrastructure\Bus\Query\Symfony\SymfonyQueryBus:
         arguments:
             $bus: '@query.bus'
 
-    Shared\Infrastructure\Symfony\Controller\ApiExceptionListener:
+    Shared\Infrastructure\Controller\Symfony\ApiExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onException }
 
@@ -53,7 +53,7 @@ services:
     ## RabbitMQ ##
     # Connection
     rabbitMQ.connection:
-        class: Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConnection
+        class: Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConnection
         arguments:
             - host: '%env(RABBITMQ_HOST)%'
               port: '%env(RABBITMQ_PORT)%'
@@ -65,8 +65,8 @@ services:
               connect_timeout: 5
 
     # Event bus definition
-    Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQEventBus:
-        class: Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQEventBus
+    Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQEventBus:
+        class: Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQEventBus
         arguments:
             - '@rabbitMQ.connection'
             - '%env(RABBITMQ_EXCHANGE)%'
@@ -74,12 +74,12 @@ services:
     # Script to initialize the configuration
     SymfonyClient\CLI\RabbitMQConfiguratorCLI:
         arguments:
-            - '@Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator'
+            - '@Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator'
             - '%env(RABBITMQ_EXCHANGE)%'
             - !tagged domain.event.subscriber
 
     # Service to configure Rabbit
-    Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator:
+    Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator:
         arguments:
             - '@rabbitMQ.connection'
 

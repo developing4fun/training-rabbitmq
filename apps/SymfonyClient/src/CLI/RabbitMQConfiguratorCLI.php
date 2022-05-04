@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SymfonyClient\CLI;
 
-use Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ\RabbitMQConfigurator;
+use Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

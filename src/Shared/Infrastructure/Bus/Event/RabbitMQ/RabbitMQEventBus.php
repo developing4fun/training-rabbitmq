@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Symfony\Bus\Event\RabbitMQ;
+namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
 
 use Shared\Domain\Bus\Event\DomainEvent;
 use Shared\Domain\Bus\Event\EventBus;
-use Shared\Infrastructure\Symfony\Bus\Event\DomainEventJsonSerializer;
+use Shared\Infrastructure\Bus\Event\DomainEventJsonSerializer;
 
 final class RabbitMQEventBus implements EventBus
 {

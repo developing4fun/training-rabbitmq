@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Symfony\Bus\Event;
+namespace Shared\Infrastructure\Bus\Event;
 
 use Shared\Domain\Bus\Event\DomainEvent;
 

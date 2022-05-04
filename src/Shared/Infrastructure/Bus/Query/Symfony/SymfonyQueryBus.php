@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace Shared\Infrastructure\Symfony\Bus\Query;
+namespace Shared\Infrastructure\Bus\Query\Symfony;
 
 use Shared\Domain\Bus\Query\Query;
 use Shared\Domain\Bus\Query\QueryBus;
