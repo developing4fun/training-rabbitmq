@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TrainingRabbit\User\Application\CreateUser;
 
-use Shared\Domain\Bus\Event\EventBus;
+use Shared\Application\Bus\Event\EventBus;
 use TrainingRabbit\User\Domain\User;
 use TrainingRabbit\User\Domain\UserId;
 use TrainingRabbit\User\Domain\UserName;

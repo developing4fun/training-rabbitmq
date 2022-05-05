@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
+namespace Shared\Infrastructure\Bus\Event;
 
-use Shared\Domain\Bus\Event\DomainEventSubscriber;
+use Shared\Domain\Event\DomainEventSubscriber;
 use Shared\Domain\Utils;
 
-final class RabbitMQQueueNameFormatter
+final class MessageQueueNameFormatter
 {
     public static function format(DomainEventSubscriber $subscriber): string
     {

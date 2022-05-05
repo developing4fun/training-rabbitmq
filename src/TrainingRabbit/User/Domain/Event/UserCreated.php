@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TrainingRabbit\User\Domain\Event;
 
-use Shared\Domain\Bus\Event\DomainEvent;
+use Shared\Domain\Event\DomainEvent;
 use TrainingRabbit\User\Domain\User;
 
 final class UserCreated extends DomainEvent

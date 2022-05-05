@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TrainingRabbit\User\Application\GenerateCoupon;
 
-use Shared\Domain\Bus\Event\DomainEventSubscriber;
+use Shared\Domain\Event\DomainEventSubscriber;
 use TrainingRabbit\User\Domain\Event\UserCreated;
 use function file_put_contents;
 use const FILE_APPEND;

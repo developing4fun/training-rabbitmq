@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Bus\Command\Symfony;
 
-use Shared\Domain\Bus\Command\Command;
-use Shared\Domain\Bus\Command\CommandBus;
+use Shared\Application\Bus\Command\Command;
+use Shared\Application\Bus\Command\CommandBus;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
 
-use Shared\Domain\Bus\Event\DomainEvent;
-use Shared\Domain\Bus\Event\EventBus;
+use Shared\Application\Bus\Event\EventBus;
+use Shared\Domain\Event\DomainEvent;
 use Shared\Infrastructure\Bus\Event\DomainEventJsonSerializer;
 
 final class RabbitMQEventBus implements EventBus

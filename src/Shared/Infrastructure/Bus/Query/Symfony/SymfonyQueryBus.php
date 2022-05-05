@@ -5,9 +5,9 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Bus\Query\Symfony;
 
-use Shared\Domain\Bus\Query\Query;
-use Shared\Domain\Bus\Query\QueryBus;
-use Shared\Domain\Bus\Query\QueryResponse;
+use Shared\Application\Bus\Query\Query;
+use Shared\Application\Bus\Query\QueryBus;
+use Shared\Application\Bus\Query\QueryResponse;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 

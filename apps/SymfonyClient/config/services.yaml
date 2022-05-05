@@ -32,14 +32,15 @@ services:
             - { name: kernel.event_listener, event: kernel.exception, method: onException }
 
     _instanceof:
-        Shared\Domain\Bus\Command\CommandHandler:
+        Shared\Application\Bus\Command\CommandHandler:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
-        Shared\Domain\Bus\Query\QueryHandler:
+
+        Shared\Application\Bus\Query\QueryHandler:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
 
-        Shared\Domain\Bus\Event\DomainEventSubscriber:
+        Shared\Domain\Event\DomainEventSubscriber:
             tags:
                 - 'domain.event.subscriber'
 
@@ -75,12 +76,12 @@ services:
     SymfonyClient\CLI\RabbitMQConfiguratorCLI:
         arguments:
             - '@Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator'
-            - '%env(RABBITMQ_EXCHANGE)%'
             - !tagged domain.event.subscriber
 
     # Service to configure Rabbit
     Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator:
         arguments:
             - '@rabbitMQ.connection'
+            - '%env(RABBITMQ_EXCHANGE)%'
 
 

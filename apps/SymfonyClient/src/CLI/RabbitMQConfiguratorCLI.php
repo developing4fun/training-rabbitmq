@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SymfonyClient\CLI;
 
-use Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQConfigurator;
+use Shared\Infrastructure\Bus\Event\MessageQueueConfigurator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,8 +16,7 @@ final class RabbitMQConfiguratorCLI extends Command
     protected static $defaultName = 'rabbitmq:configure';
 
     public function __construct(
-        private RabbitMQConfigurator $configurator,
-        private string $exchangeName,
+        private MessageQueueConfigurator $configurator,
         private Traversable $subscribers
     ) {
         parent::__construct();
@@ -30,7 +29,7 @@ final class RabbitMQConfiguratorCLI extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->configurator->configure($this->exchangeName, ...iterator_to_array($this->subscribers));
+        $this->configurator->configure(...iterator_to_array($this->subscribers));
         
         return self::SUCCESS;
     }

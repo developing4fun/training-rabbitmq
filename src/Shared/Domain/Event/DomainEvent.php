@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Shared\Domain\Bus\Event;
+namespace Shared\Domain\Event;
 
 use DateTimeImmutable;
 use Shared\Domain\ValueObject\Uuid;

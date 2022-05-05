@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TrainingRabbit\User\Application\CreateUser;
 
-use Shared\Domain\Bus\Command\CommandHandler;
+use Shared\Application\Bus\Command\CommandHandler;
 use TrainingRabbit\User\Domain\UserId;
 use TrainingRabbit\User\Domain\UserName;
 

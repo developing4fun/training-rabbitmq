@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TrainingRabbit\User\Application\CreateUser;
 
-use Shared\Domain\Bus\Command\Command;
+use Shared\Application\Bus\Command\Command;
 
 final class CreateUserCommand implements Command
 {

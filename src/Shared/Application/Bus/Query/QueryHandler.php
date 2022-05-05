@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Shared\Domain\Bus\Query;
+namespace Shared\Application\Bus\Query;
 
 interface QueryHandler {}

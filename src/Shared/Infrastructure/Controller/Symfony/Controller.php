@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Controller\Symfony;
 
-use Shared\Domain\Bus\Command\Command;
-use Shared\Domain\Bus\Command\CommandBus;
-use Shared\Domain\Bus\Query\Query;
-use Shared\Domain\Bus\Query\QueryBus;
-use Shared\Domain\Bus\Query\QueryResponse;
+use Shared\Application\Bus\Command\Command;
+use Shared\Application\Bus\Command\CommandBus;
+use Shared\Application\Bus\Query\Query;
+use Shared\Application\Bus\Query\QueryBus;
+use Shared\Application\Bus\Query\QueryResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 

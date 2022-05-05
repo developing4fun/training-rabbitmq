@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Bus\Event;
 
-use Shared\Domain\Bus\Event\DomainEvent;
+use Shared\Domain\Event\DomainEvent;
 
 final class DomainEventJsonSerializer
 {

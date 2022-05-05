@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Controller\Symfony;
 
-use Shared\Domain\Bus\Command\CommandBus;
-use Shared\Domain\Bus\Query\QueryBus;
+use Shared\Application\Bus\Command\CommandBus;
+use Shared\Application\Bus\Query\QueryBus;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;

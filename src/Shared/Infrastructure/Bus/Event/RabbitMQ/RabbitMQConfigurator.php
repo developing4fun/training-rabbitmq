@@ -5,50 +5,49 @@ declare(strict_types=1);
 namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
 
 use AMQPQueue;
-use Shared\Domain\Bus\Event\DomainEvent;
-use Shared\Domain\Bus\Event\DomainEventSubscriber;
+use Shared\Domain\Event\DomainEvent;
+use Shared\Domain\Event\DomainEventSubscriber;
+use Shared\Infrastructure\Bus\Event\MessageQueueConfigurator;
+use Shared\Infrastructure\Bus\Event\MessageQueueNameFormatter;
 
-final class RabbitMQConfigurator
+final class RabbitMQConfigurator implements MessageQueueConfigurator
 {
     public function __construct(
-        private RabbitMQConnection $connection
+        private RabbitMQConnection $connection,
+        private string $exchangeName
     ) {}
 
-    public function configure(string $exchangeName, DomainEventSubscriber ...$subscribers): void
+    public function configure(DomainEventSubscriber ...$subscribers): void
     {
-        $this->declareExchange($exchangeName);
-        $this->declareQueues($exchangeName, ...$subscribers);
+        $this->declareExchange();
+        $this->declareQueues(...$subscribers);
     }
 
-    private function declareExchange(string $exchangeName): void
+    private function declareExchange(): void
     {
-        $exchange = $this->connection->exchange($exchangeName);
+        $exchange = $this->connection->exchange($this->exchangeName);
         $exchange->setType(AMQP_EX_TYPE_TOPIC);
         $exchange->setFlags(AMQP_DURABLE);
         $exchange->declareExchange();
     }
 
-    private function declareQueues(
-        string $exchangeName,
-        DomainEventSubscriber ...$subscribers
-    ): void {
-        array_walk($subscribers, $this->queueDeclarer($exchangeName));
+    private function declareQueues(DomainEventSubscriber ...$subscribers): void
+    {
+        array_walk($subscribers, $this->queueDeclarer());
     }
 
-    private function queueDeclarer(
-        string $exchangeName
-    ): callable {
-        return function (DomainEventSubscriber $subscriber) use (
-            $exchangeName
-        ) {
-            $queueName = RabbitMQQueueNameFormatter::format($subscriber);
+    private function queueDeclarer(): callable
+    {
+        return function (DomainEventSubscriber $subscriber)
+        {
+            $queueName = MessageQueueNameFormatter::format($subscriber);
             $queue = $this->declareQueue($queueName);
 
-            $queue->bind($exchangeName, $queueName);
+            $queue->bind($this->exchangeName, $queueName);
 
             /** @var DomainEvent $eventClass */
             foreach($subscriber::subscribedTo() as $eventClass) {
-                $queue->bind($exchangeName, $eventClass::eventName());
+                $queue->bind($this->exchangeName, $eventClass::eventName());
             }
         };
     }
