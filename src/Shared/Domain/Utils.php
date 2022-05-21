@@ -19,4 +19,9 @@ final class Utils
 
         return $reflect->getShortName();
     }
+
+    public static function jsonDecode(string $json): array
+    {
+        return (array) json_decode($json, true);
+    }
 }

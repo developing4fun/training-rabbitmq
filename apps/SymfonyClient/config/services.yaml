@@ -84,4 +84,18 @@ services:
             - '@rabbitMQ.connection'
             - '%env(RABBITMQ_EXCHANGE)%'
 
+    # Service to find all the domain event subscribers
+    Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQDomainEventSubscriberLocator:
+        arguments:
+            - !tagged domain.event.subscriber
+
+    Shared\Infrastructure\Bus\Event\RabbitMQ\DomainEventMapping:
+        arguments: [ !tagged domain.event.subscriber]
+
+    Shared\Infrastructure\Bus\Event\RabbitMQ\RabbitMQDomainEventConsumer:
+        arguments:
+            - '@rabbitMQ.connection'
+            - '@Shared\Infrastructure\Bus\Event\DomainEventJsonDeserializer'
+            - '%env(RABBITMQ_EXCHANGE)%'
+            - '%env(RABBITMQ_MAX_RETRIES)%'
 
