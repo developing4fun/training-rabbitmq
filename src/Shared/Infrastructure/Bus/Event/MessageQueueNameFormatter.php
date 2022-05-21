@@ -19,4 +19,18 @@ final class MessageQueueNameFormatter
 
         return implode('.', array_map(fn(string $text) => Utils::toSnakeCase($text), $queueNameParts));
     }
+
+    public static function formatRetry(DomainEventSubscriber $subscriber): string
+    {
+        $queueName = self::format($subscriber);
+
+        return 'retry-' . $queueName;
+    }
+
+    public static function formatDeadLetter(DomainEventSubscriber $subscriber): string
+    {
+        $queueName = self::format($subscriber);
+
+        return 'dead_letter-' . $queueName;
+    }
 }
