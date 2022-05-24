@@ -35,7 +35,7 @@ final class RabbitMQConnection
 
     public function queue(string $name): AMQPQueue
     {
-        if(empty(self::$queues[$name])) {
+        if (empty(self::$queues[$name])) {
             $queue = new AMQPQueue($this->channel());
             $queue->setName($name);
             self::$queues[$name] = $queue;

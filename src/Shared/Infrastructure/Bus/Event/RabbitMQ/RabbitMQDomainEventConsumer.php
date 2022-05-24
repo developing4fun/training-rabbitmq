@@ -6,6 +6,7 @@ namespace Shared\Infrastructure\Bus\Event\RabbitMQ;
 
 use AMQPEnvelope;
 use AMQPQueue;
+use AMQPQueueException;
 use Shared\Domain\Event\DomainEventSubscriber;
 use Shared\Infrastructure\Bus\Event\DomainEventJsonDeserializer;
 use Throwable;
@@ -26,11 +27,13 @@ final class RabbitMQDomainEventConsumer implements DomainEventConsumer
         DomainEventSubscriber $subscriber,
         string $queueName
     ): void {
-        $this->connection
-            ->queue($queueName)
-            ->consume(
-                $this->consumer($subscriber)
-            );
+        try {
+            $this->connection
+                ->queue($queueName)
+                ->consume(
+                    $this->consumer($subscriber)
+                );
+        } catch (AMQPQueueException) {}
     }
 
     private function consumer(DomainEventSubscriber $subscriber): callable
