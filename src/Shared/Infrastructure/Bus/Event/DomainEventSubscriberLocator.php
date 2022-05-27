@@ -9,4 +9,6 @@ use Shared\Domain\Event\DomainEventSubscriber;
 interface DomainEventSubscriberLocator
 {
     public function withQueueName(string $queueName): DomainEventSubscriber;
+
+    public function all(): array;
 }

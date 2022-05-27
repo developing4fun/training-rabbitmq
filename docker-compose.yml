@@ -4,8 +4,8 @@ version: '3.8'
 services:
   php_container:
     build:
-      context: etc/infrastructure/php
-      dockerfile: Dockerfile
+      context: etc/infrastructure
+      dockerfile: php.Dockerfile
     container_name: php_container
     volumes:
       - ./:/app
@@ -38,3 +38,14 @@ services:
     expose:
       - ${RABBITMQ_PORT}
       - 15672
+
+  supervisor:
+      build:
+        context: etc/infrastructure
+        dockerfile: supervisor.Dockerfile
+      ports:
+        - 9091:9001
+      volumes:
+        - .:/app
+      depends_on:
+        - rabbitmq

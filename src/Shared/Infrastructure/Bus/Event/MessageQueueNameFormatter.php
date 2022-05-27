@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Shared\Infrastructure\Bus\Event;
 
+use ReflectionClass;
 use Shared\Domain\Event\DomainEventSubscriber;
 use Shared\Domain\Utils;
 
@@ -13,7 +14,7 @@ final class MessageQueueNameFormatter
     {
         $subscriberClasspath = explode('\\', get_class($subscriber));
         $queueNameParts = [
-            $subscriberClasspath[0],
+            reset($subscriberClasspath),
             end($subscriberClasspath),
         ];
 
@@ -32,5 +33,12 @@ final class MessageQueueNameFormatter
         $queueName = self::format($subscriber);
 
         return 'dead_letter-' . $queueName;
+    }
+
+    public static function shortFormat(DomainEventSubscriber $subscriber): string
+    {
+        $subscriberCamelCaseName = (new ReflectionClass($subscriber))->getShortName();
+
+        return Utils::toSnakeCase($subscriberCamelCaseName);
     }
 }

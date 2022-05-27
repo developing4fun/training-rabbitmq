@@ -1,13 +1,13 @@
 FROM php:8.0.6-fpm-alpine
 
-COPY php.ini /usr/local/etc/php/php.ini
+COPY php/php.ini /usr/local/etc/php/php.ini
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-COPY xdebug.ini /usr/local/etc/php/conf.d/
+COPY php/xdebug.ini /usr/local/etc/php/conf.d/
 
 RUN apk --update upgrade \
-    && apk add --no-cache autoconf automake make gcc g++ bash icu-dev libzip-dev \
+    && apk add --no-cache autoconf automake make gcc g++ bash icu-dev libzip-dev supervisor \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
         opcache \
@@ -31,3 +31,7 @@ RUN docker-php-ext-enable \
 ENV PHP_IDE_CONFIG 'serverName=DockerApp'
 
 RUN apk add --no-cache $PHPIZE_DEPS
+
+COPY supervisor/supervisord.conf /etc/supervisord.conf
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

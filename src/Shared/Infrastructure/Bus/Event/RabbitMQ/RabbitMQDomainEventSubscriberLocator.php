@@ -36,4 +36,9 @@ final class RabbitMQDomainEventSubscriberLocator implements DomainEventSubscribe
             )
         );
     }
+    
+    public function all(): array
+    {
+        return $this->mapping;
+    }
 }
